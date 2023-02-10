@@ -7,7 +7,7 @@ const formAlertDOM = document.querySelector('.form-alert')
 const showTasks = async () => {
   loadingDOM.style.visibility = 'visible'
   try {
-    debugger
+
     const data = await fetch('http://localhost:5000/api/v1/tasks');
     let  tasks = await data.json();
     tasks = tasks.allTask;
@@ -18,7 +18,6 @@ const showTasks = async () => {
     }
     const allTasks = tasks
       .map((task) => {
-        debugger
         const { completed, _id: taskID, name } = task
         return `<div class="single-task ${completed && 'task-completed'}">
 <h5><span><i class="far fa-check-circle"></i></span>${name}</h5>
@@ -56,7 +55,13 @@ tasksDOM.addEventListener('click', async (e) => {
     loadingDOM.style.visibility = 'visible'
     const id = el.parentElement.dataset.id
     try {
-      await axios.delete(`/api/v1/tasks/${id}`)
+     const data = await fetch(`http://localhost:5000/api/v1/tasks/${id}`,{
+      method : 'DELETE'
+  })
+  const response =await data.json()
+  console.log(response)
+      
+
       showTasks()
     } catch (error) {
       console.log(error)
@@ -69,10 +74,17 @@ tasksDOM.addEventListener('click', async (e) => {
 
 formDOM.addEventListener('submit', async (e) => {
   e.preventDefault()
+  debugger
   const name = taskInputDOM.value
-
   try {
-    await axios.post('/api/v1/tasks', { name })
+    const request = await fetch('http://localhost:5000/api/v1/tasks',{
+      method :'POST',
+      body : JSON.stringify({name: name,completed : false}),
+      headers : {
+        'Content-Type' : 'application/json'
+    }
+  })
+
     showTasks()
     taskInputDOM.value = ''
     formAlertDOM.style.display = 'block'

@@ -3,6 +3,7 @@ const loadingDOM = document.querySelector('.loading-text')
 const formDOM = document.querySelector('.task-form')
 const taskInputDOM = document.querySelector('.task-input')
 const formAlertDOM = document.querySelector('.form-alert')
+
 // Load tasks from /api/tasks
 const showTasks = async () => {
   loadingDOM.style.visibility = 'visible'
@@ -46,8 +47,6 @@ const showTasks = async () => {
 }
 
 showTasks()
-
-// delete task /api/tasks/:id
 
 tasksDOM.addEventListener('click', async (e) => {
   const el = e.target

@@ -32,9 +32,6 @@ const getTask  = async(req,res)=>{
     }
 }
 
-
-
-
 const updateTask  = async(req,res)=>{
    try{
     const {id:taskID} = req.params;
@@ -66,8 +63,6 @@ const deleteTask  = async(req,res)=>{
         res.status(500).json({msg : err})
     }
 }
-
-
 
 module.exports = {
     getAllTasks,
